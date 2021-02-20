@@ -151,9 +151,9 @@ public class HelloWorldMainApplication {
 
 
 
-**@SpringBootConfiguration**：Spring Boot的配置类；
+**@SpringBootConfiguration**：Spring Boot 的配置类；
 
-​			标注在某个类上，表示这是一个Spring Boot的配置类
+​			标注在某个类上，表示这是一个 Spring Boot 的配置类
 
 ​			**@Configuration**：配置类上来标注这个注解；
 
@@ -161,7 +161,7 @@ public class HelloWorldMainApplication {
 
  **@EnableAutoConfiguration**：开启自动配置功能
 
-​			以前需要配置的东西，Spring Boot帮我们自动配置；**@EnableAutoConfiguration**告诉SpringBoot开启自动配置功能；这样自动配置才能生效；
+​			以前需要配置的东西，Spring Boot 帮我们自动配置；**@EnableAutoConfiguration **告诉 SpringBoot 开启自动配置功能；这样自动配置才能生效；
 
 ```java
 @AutoConfigurationPackage
@@ -585,7 +585,7 @@ SpringBoot也可以从以下位置加载配置；优先级从高到低；高优�
 
 ## 8、自动配置原理
 
-配置文件能配置的属性参照
+配置文件能配置的属性参照 
 
 
 

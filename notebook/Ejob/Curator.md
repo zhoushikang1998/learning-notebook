@@ -4,7 +4,7 @@ Apache Curator 是一个比较完善的 ZooKeeper 客户端框架，通过封装
 
 - 封装 ZooKeeper client 与 ZooKeeper server 之间的连接处理
 - 提供了一套 Fluent 风格的操作 API
-- 提供 ZooKeeper 各种应用场景(recipe， 比如：**分布式锁服务、集群领导选举、共享计数器、缓存机制、分布式队列等**)的抽象封装
+- 提供 ZooKeeper 各种应用场景(recipe， 比如：**分布式锁服务、集群 Leader 选举、共享计数器、缓存机制、分布式队列等**)的抽象封装
 
 Curator 主要从以下几个方面降低了 zk 使用的复杂性：
 

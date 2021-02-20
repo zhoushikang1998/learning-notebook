@@ -4,7 +4,7 @@
 - 入门步骤
   1. 实现 org.quartz.Job，创建自己的 job 实现		===> 如：StatelessJobFactory
   2. 实例化 SchedulerFactory，获取 scheduler 实例，构建 jobDetail、Trigger。然后用 Scheduler 实例将 JobDetail、Trigger 加入调度容器并 start。
-     - **scheduler被停止后，除非重新实例化，否则不能重新启动；只有当scheduler启动后，即使处于暂停状态也不行，trigger才会被触发（job才会被执行）。**
+     - **scheduler 被停止后，除非重新实例化，否则不能重新启动；只有当scheduler启动后，即使处于暂停状态也不行，trigger才会被触发（job才会被执行）。**
 
 
 
@@ -421,7 +421,7 @@ SimpleTrigger 主要可以满足一些简单的调度需求，比如在某个时
 
 ### SimpleTrigger的Misfire策略
 
-关于 Trigge 的 MisFire 策略在之前的学习中已经接触过了，这里在详细分不同的 Trigger 来学习一下。在 Trigger 中关于 SimpleTrigger 的 Misfire 策略常量如下，并且可以通过 SimpleSchedulerBuilder 设置。
+在 Trigger 中关于 SimpleTrigger 的 Misfire 策略常量如下，并且可以通过 SimpleSchedulerBuilder 设置。
 
 #### MISFIRE_INSTRUCTION_FIRE_NOW
 

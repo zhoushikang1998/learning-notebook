@@ -13,7 +13,7 @@ AOP 原理：看给容器中注册了什么组件，这些组件什么时候工�
 
 2. AnnotationAwareAspectJAutoProxyCreator
 
-![](E:\学习笔记\Spring\images\AnnotationAwareAspectJAutoProxyCreator 的父类和实现的接口.PNG)
+![](images\AnnotationAwareAspectJAutoProxyCreator 的父类和实现的接口.PNG)
 
 关注后置处理器（在 bean 初始化完成前后做事情），自动装配 BeanFactory
 

@@ -499,13 +499,13 @@ public interface Consumer {
 
   
 
-## Frame与FrameHandler
+## Frame 与 FrameHandler
 
-### Frame(帧)分析
+### Frame (帧)分析
 
-- AMQP帧(Frame)的格式
+- AMQP 帧(Frame)的格式
 
-  1. tcp/ip是一个流协议，amqp没有采用在流中添加帧定界符来区分帧数据（原因官方认为简单，但是很慢），而是采用在`header`中写入帧大小来区分不同的帧（官方认为简单而且很快）。
+  1. tcp/ip 是一个流协议，amqp 没有采用在流中添加帧定界符来区分帧数据（原因官方认为简单，但是很慢），而是采用在`header`中写入帧大小来区分不同的帧（官方认为简单而且很快）。
 
   2. `Frame(帧)`就是传输协议的具体实现，即传输的具体数据包
 
