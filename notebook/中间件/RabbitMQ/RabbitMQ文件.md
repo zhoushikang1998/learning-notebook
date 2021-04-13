@@ -1,0 +1,13 @@
+- /etc/rabbitmq
+  - 环境变量配置文件
+    - centos 6（3.7 之前）：`/etc/rabbitmq/rabbitmq-env.conf`：
+  - 启动的插件：enabled_plugins
+  - server(核心服务器) 和 plugin 的设置：rabbitmq.config
+- /data/rabbitmq
+  - log：日志文件目录
+    - rabbit-mgmt 目录：数据操作日志文件（`access.log.日期`）
+    -  <nodename>.log 和 <nodename>_sasl.log
+    - startup_log、startup_err
+    - shutdown_err、shutdown_log
+  - mnesia
+    - 
