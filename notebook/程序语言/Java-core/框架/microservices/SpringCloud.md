@@ -11,11 +11,70 @@
 
 
 
-### 服务治理——Eureka
+### 2.1 服务治理——Eureka
+
+#### 2.1.1 服务注册及其原理
+
+- Eureka 遵守 AP 原则。高可用：在 Eureka 的实现中，节点之间是相互平等的，部分注册中心的节点挂掉不会对集群造成影响。即使所有节点都挂了，Eureka 客户端中所缓存的服务实例列表信息，也能够让服务消费者正常工作。
+- **服务注册**：当 Eureka 客户端向 Eureka Server 注册时，它提供自身的元数据，比如 IP 地址、端口、运行状况指示符 URL、主页等。**当服务实例状态发生变化时**，向 Eureka Server 更新自己的服务状态，并用 replicateToPeers() 向其他服务器节点做状态同步。
+- **服务续约**：Eureka 客户端会每 30 秒发送一次心跳来续约。如果 Eureka 在 90 秒没有收到 Eureka 客户端的心跳，会将实例从其注册表中删除。续约的处理逻辑和服务注册逻辑基本一致：首先更新自身状态，然后同步到其他 Eureka 服务器节点。
+- **服务下线与剔除**：当服务实例关闭时，服务实例会先向 Eureka 服务器发送服务下线请求。发送请求后，该服务实例信息将从 Eureka Server 的实例注册表中删除。
 
 
 
-### 服务调用——Ribbon
+#### 2.1.2 Eureka 自我保护模式
+
+- 在 Eureka 中默认开启自我保护模式。在自我保护模式下，Eureka Server 会保护服务注册表中的信息，不再注销任务服务实例。
+- Eureka Server 自我保护模式开启的条件：当 Eureka Server 每分钟收到心跳续租的数量低于一个阈值（85%），就会触发自我保护模式。
+- Eureka 服务器会以每 5 分钟的间隔从与它对等节点中复制所有的服务注册数据，已达到同步的目的；如果这个同步失败，也会进入自我保护模式。
+
+
+
+#### 2.1.3 注册一个服务实例需要的时间
+
+- 服务实例注册，最长需要 2 分钟能被其他服务调用者消费和使用。（三处缓存处理、一处延迟处理）
+  - Eureka 服务器对服务注册列表进行缓存，30 秒。
+  - Eureka 客户端（服务消费方）对注册的服务信息进行时间，30 秒。
+  - Ribbon 负载均衡会从 Eureka 客户端获取服务列表，并将负载均衡后的结果缓存 30 秒。
+  - 服务实例（Eureka 客户端）在启动时，会在一个延迟时间（40 秒）后才向 Eureka Server 注册。
+
+
+
+#### 2.1.4 Eureka 高可用集群
+
+- Eureka Server：通过运行多个实例构建集群，解决单点问题，提高可用率。
+- Eureka Server 采用 Peer to Peer 对等通信，去中心化架构。每个节点通过互相注册提高可用性。
+
+
+
+#### 2.1.5 多网卡及 IP 指定
+
+- 在项目中使用 IP 地址而不是主机名称来注册微服务。
+  - 环境没有 DNS 支持，或者使用 Docker 部署时，主机名称是随机生成的。
+
+
+
+#### 2.1.6 Eureka Server 访问安全
+
+- 在 Eureka Server 添加配置
+
+  ```properties
+  security.basic.enabled=true
+  security.user.name=user
+  security.user.password=pwd
+  ```
+
+- 增加对 spring-boot-starter-security 的依赖
+
+- Eureka 客户端访问时，需要提供安全认证
+
+  ```properties
+  eureka.clinet.service-uri.defaultZone=http://user:pwd@${eureka.instance.hostname}:${server.port}/eureka/
+  ```
+
+  
+
+### 服务调用和客户端负载均衡——Ribbon
 
 
 
@@ -613,3 +672,8 @@
 - 业务应用安全：
   - 保障只有认证的用户才可以访问应用，也就是**用户认证**。
   - 保障访问者只有拥有足够的权限才可以访问某个资源，也就是**用户鉴权**。
+
+
+
+
+
